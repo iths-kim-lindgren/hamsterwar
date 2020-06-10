@@ -1,0 +1,65 @@
+.App {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.main-border {
+  border: 1px solid darkblue;
+  padding: 1em;
+  margin: 0.5em;
+}
+
+.main-section {
+  background-color: #3C3C3C;
+  color: white;
+  min-height: 50vh;
+}
+
+header, header > article, footer {
+  display: flex;
+}
+
+
+/*
+header img {
+  height: 10vh;
+} */
+
+/* header img.reverse {
+  transform: scaleX(-1)
+} */
+
+@font-face {
+  font-family: 'Righteous';
+  src: url('Righteous-Regular.ttf')
+}
+/* 
+header h1 {
+  font-family: 'Righteous', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 3em;
+  margin: 0.3em 0;
+} */
+
+/* header > article {
+  width: 80vw;
+  justify-content: center;
+  align-items: center;
+} */
+
+section.top, section.mid {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.hamster-container {
+  display: inline-block;
+}
+
+footer {
+  justify-content: space-around;
+}
+
+@media (min-width: 1024px) {
+
+} 
