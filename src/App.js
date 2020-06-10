@@ -5,7 +5,9 @@ import Header from './components/Header'
 import Hamster from './components/Hamster'
 import Footer from './components/Footer'
 import Bordered from './components/Bordered'
-import MainSection from './components/MainSection'
+import StartSection from './components/StartSection'
+import NavBar from './components/NavBar'
+import BattleStats from './components/BattleStats'
 
 function App() {
 
@@ -13,8 +15,8 @@ function App() {
 
     <div className="wrapper">
       <Header></Header>
-      <nav></nav>
-      <MainSection></MainSection>
+      <NavBar></NavBar>
+      
       <Footer></Footer>
     </div>
   )
