@@ -31,6 +31,7 @@ const InspectHamsters = () => {
                                 <li>Wins: {hamster.wins}</li>
                                 <li>Defeats: {hamster.defeats}</li>
                             </ul>
+                            
                         </article>
                     </Bordered>
                 ))

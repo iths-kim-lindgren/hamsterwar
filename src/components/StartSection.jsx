@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import '../App.css'
 import styled from 'styled-components'
+import { getHamsterImages } from './fetchData'
 
 const StyledSection = styled.section`
     flex-direction: row;
@@ -23,9 +24,20 @@ const StyledSection = styled.section`
     }
 `
 
-const MainSection = () => (
-    
+const MainSection = () => {
+
+    const [hamsterImage, setHamsterImage] = useState(null)
+
+    function setImg () {
+        let imgUrl = getHamsterImages()
+        setHamsterImage(imgUrl.url)
+        console.log(imgUrl.url)
+    }
+
+    return (
     <StyledSection className="main-section start-section">
+        <button onClick={() => setImg()}></button>
+        <img src={hamsterImage}></img>
         <article>
             <p>The evil otter lord Aurelius is capturing hamsters from all over the world and trapping them in the dungeon below his gladiator arena. Every night, several hamsters are selected to fight each other to the death - although the defeated hamster may live, if Aurelius is merciful.
 
@@ -34,5 +46,6 @@ Lord Aurelius will be greatly pleased if you submit a hamster of your own to his
         <img src="./hamsterIMG/evilOtter.png" alt="evilOtter" className="evil-otter"></img>
     </StyledSection>
 )
+    }
 
 export default MainSection;

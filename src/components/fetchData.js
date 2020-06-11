@@ -33,6 +33,20 @@ export async function getLivingHamsters() {
     }
 }
 
+export async function getHamsterImages() {
+    try {
+        const response = await fetch('/images/hamster-1.jpg')
+        const imageObj = await response.json()
+        console.log(imageObj)
+
+        return imageObj
+    }
+    catch(e) {
+        console.log('Fetch failed because', e)
+        return null
+    }
+}
+
 export async function getBattlingHamsters() {
     let array = await getLivingHamsters()
     console.log(array)

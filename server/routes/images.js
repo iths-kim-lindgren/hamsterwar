@@ -2,23 +2,23 @@ const { Router } = require('express');
 let router = new Router();
 let { auth, db, storage } = require('../firebase')
 
-router.get('/', async (req, res) => {
- 
+// Get the image from Storage. Img file name from hamsterobject provided as a param
+router.get('/:fileName', async (req, res) => {
     try {
-        let games = await db.collection('hamsters').orderBy('wins', "desc").limit(5).get();
-        let toplist = [];
+        let imagePromise = storage.bucket('gs://hamsterwars-901b9.appspot.com/').file(`${req.params.fileName}`)
+        .getSignedUrl({
+            action: "read",
+            expires: '03-17-2025'
+        })
+        .then(data => data[0])
+        const hamsterImage = await imagePromise
+        console.log('hamsterImage backend: ', hamsterImage)
+        res.send({url: hamsterImage})
         
-        games.forEach(game => {
-        toplist.push(game.data())
-        });
-        
-        res.send({ toplist: toplist })
+    } catch (error) {
+        console.log(error)
     }
-    catch(err){
-        console.error(err)
-    }
-    
-   })
+})
 
 // // Create a reference with an initial file path and name
 // // var storage = firebase.storage();
