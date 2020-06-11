@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect } from 
 import StartSection from './StartSection'
 import Arena from './Arena'
 import BattleStats from './BattleStats'
+import AddHamster from './AddHamster'
 import styled from 'styled-components'
 
 // const Dropdown = styled.a`
@@ -34,7 +35,7 @@ const NavBar = () => {
                     <BattleStats/>
                 </Route>
                 <Route path="/add-hamster">
-                    Add a hamster
+                    <AddHamster></AddHamster>
             </Route>
                 <Route path="/graveyard">
                     This is the graveyard

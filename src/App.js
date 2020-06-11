@@ -16,7 +16,6 @@ function App() {
     <div className="wrapper">
       <Header></Header>
       <NavBar></NavBar>
-      
       <Footer></Footer>
     </div>
   )

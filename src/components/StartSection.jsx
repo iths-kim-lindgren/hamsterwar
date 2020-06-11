@@ -3,16 +3,17 @@ import '../App.css'
 import styled from 'styled-components'
 
 const StyledSection = styled.section`
+    flex-direction: row;
     align-items: flex-end;
     justify-content: space-around;
     & img {
         height: 30vh;
     }
     & article {
-        height: 50vh;
         display: flex;
         justify-content: center;
         align-items: center;
+        height: 50vh;
     }
     & article p {
         width: 50vw;

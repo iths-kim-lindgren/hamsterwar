@@ -15,6 +15,7 @@ const hamstersRoute = require('./routes/hamsters');
 const chartsRoute = require('./routes/charts')
 const gamesRoute = require('./routes/games')
 const statsRoute = require('./routes/stats')
+const imagesRoute = require('./routes/images')
     
 server.use(bodyParser.json())
 server.use('/assets', express.static("assets"))
@@ -24,6 +25,7 @@ server.use('/hamsters', hamstersRoute)
 server.use('/charts', chartsRoute)
 server.use('/games', gamesRoute)
 server.use('/stats', statsRoute)
+server.use('/images', imagesRoute)
 
 server.listen(serverPort, () => {
     console.log('Server is up n running!')
