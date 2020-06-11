@@ -27,13 +27,14 @@ nav > button {
   border: 3px solid darkgrey;
   padding: 1em;
   margin: 0.5em;
+  display: inline-block;
 }
 
 .main-section {
   background-color: #3C3C3C;
   color: white;
   min-height: 50vh;
-  display: flex;
+  /* display: flex; */
 }
 
 .inspect-hamsters {
