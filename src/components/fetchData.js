@@ -23,8 +23,6 @@ export async function getLivingHamsters() {
     try {
         const response = await fetch('/hamsters')
         const hamstersObj = await response.json()
-        console.log(hamstersObj)
-
         return hamstersObj
     }
     catch(e) {
@@ -33,11 +31,11 @@ export async function getLivingHamsters() {
     }
 }
 
-export async function getHamsterImages() {
+export async function getHamsterImages(index) {
     try {
-        const response = await fetch('/images/hamster-1.jpg')
+        const response = await fetch(`/images/${index}`)
         const imageObj = await response.json()
-        console.log(imageObj)
+        // console.log(imageObj)
 
         return imageObj
     }
@@ -49,13 +47,15 @@ export async function getHamsterImages() {
 
 export async function getBattlingHamsters() {
     let array = await getLivingHamsters()
-    console.log(array)
     let rand1 = Math.floor(Math.random() * array.length)
     let rand2 = Math.floor(Math.random() * array.length)
     
     do {
         rand2 = Math.floor(Math.random() * array.length);
     } while(rand1 === rand2);
+
+    array[rand1].imgURL = await getHamsterImages(array[rand1].imgName)
+    array[rand2].imgURL = await getHamsterImages(array[rand2].imgName)
 
     console.log({hamster1: array[rand1], hamster2: array[rand2]})
 

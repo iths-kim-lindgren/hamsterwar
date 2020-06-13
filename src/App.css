@@ -9,10 +9,13 @@ nav {
   background: linear-gradient(to bottom,  #1B1818 50%, #3C3C3C, #3C3C3C 50%);
 }
 
+h1, h2, h3, h4, h5, p, button {
+  font-family: 'Righteous', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 nav button, nav a button, section button {
     color: #E3F512;
     text-align: center;
-    font-family: 'Righteous', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background: linear-gradient(to bottom, #3C3C3C, #3C3C3C 30%, #1B1818 70%);
     height: 2em;
     width: 8em;
@@ -23,22 +26,25 @@ nav > button {
   transform: translateY(4px)
 }
 
-.main-border {
-  border: 3px solid darkgrey;
-  padding: 1em;
-  margin: 0.5em;
-  display: inline-block;
+@font-face {
+  font-family: 'Revalia';
+  src: url('Revalia-Regular.ttf') 
+}
+
+li {
+  font-family: 'Revalia', 'Courier New';
+  color: white;
 }
 
 .main-section {
   background-color: #3C3C3C;
-  color: white;
+  color: black;
   min-height: 50vh;
   display: flex;
 }
 
 .inspect-hamsters {
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
 }
 

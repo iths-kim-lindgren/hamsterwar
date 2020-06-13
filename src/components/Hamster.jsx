@@ -3,31 +3,30 @@ import styled from 'styled-components'
 import Bordered from './Bordered'
 
 const StyledArticle = styled.article`
-    width: 12em;
+    width: 16em;
     height: 20em;
+    border: 3px solid darkgrey;
+    padding: 1em; 
+    margin: 0.5em;
+    display: inline-block;
+    border-radius: 5%;
+
+    & img {
+        width: 70%;
+        /* height: 30%; */
+    }
 `
 const StyledHeader = styled.header`
     display: flex;
     flex-direction: row;
 `
 
-
-
-const Hamster = () => {
+const Hamster = ({ children }) => {
 
     return (
-        <div className="hamster-container">
-            <Bordered>
-                <StyledArticle>
-                    <StyledHeader>
-                        <h3>Hamster name</h3>
-                        <p>Date component</p>
-                    </StyledHeader>
-                    <img src="" alt="Hamster"></img>
-                    <p>Presentation</p>
-                </StyledArticle>
-            </Bordered>
-        </div>
+        <StyledArticle>
+            {children}
+        </StyledArticle>
     )
 }
 

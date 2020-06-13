@@ -28,14 +28,16 @@ const MainSection = () => {
 
     const [hamsterImage, setHamsterImage] = useState(null)
 
-    function setImg () {
-        let imgUrl = getHamsterImages()
-        setHamsterImage(imgUrl.url)
-        console.log(imgUrl.url)
+    async function setImg () {
+        for (let i = 1; i < 2; i++){
+            let imgUrl = await getHamsterImages(i)
+            setHamsterImage(imgUrl.url)
+            console.log(imgUrl)
+        }
     }
-
+    
     return (
-    <StyledSection className="main-section start-section">
+        <StyledSection className="main-section start-section">
         <button onClick={() => setImg()}></button>
         <img src={hamsterImage}></img>
         <article>
