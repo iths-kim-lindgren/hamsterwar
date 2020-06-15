@@ -37,7 +37,9 @@ const AddHamster = () => {
 
     const [nameButtonClass, setNameButtonClass] = useState("untouched")
     const [ageButtonClass, setAgeButtonClass] = useState("untouched")
+    const [imgValid, setImgValid] = useState("❓")
     const [nameValid, setNameValid] = useState("❓")
+    const [nameUnique, setNameUnique] = useState("❓")
     const [ageValid, setAgeValid] = useState("❓")
 
     const [img, setImg] = useState(null)
@@ -51,13 +53,26 @@ const AddHamster = () => {
         event.preventDefault();
     }
 
-    useEffect(() => {
-        name.length > 2 ? setNameValid("✔️") : setNameValid("❌")   
-    }, [nameTouched])
+    function setNameChanges() {
+        setNameButtonClass("touched")
+        setNameTouched(true)
+    }
 
-    useEffect(() => {
-        age.length > 2 ? setAgeValid("✔️") : setAgeValid("❌")
-    }, [ageTouched])
+    function checkNameValidity(value) {
+        setName(value)
+        value.length > 1 && value.length < 11 ? setNameValid("✔️") : setNameValid("❌")
+
+        // hämta en lista på alla hamsternamn, filtrera, kolla om någon matchar, sätt NameUnique
+    }
+
+    function setAgeChanges() {
+        setAgeButtonClass("touched")
+        setAgeTouched(true)
+    }
+    function checkAgeValidity(value) {
+        setAge(value)
+        value !== "" && value > -1 && value < 6 ? setAgeValid("✔️") : setAgeValid("❌")
+    }
 
     return (
         <MainSection>
@@ -70,27 +85,31 @@ const AddHamster = () => {
                     <article className="form">
                         <label>Hamster name</label>
                         <input type="text" className={nameButtonClass}
-                            placeholder="Name (3-10 characters)"
-                            onClick={() => setNameButtonClass("touched") /*, setNameTouched(true)*/}
-                            onBlur={() => setNameButtonClass("untouched")}
-                            >
+                            placeholder="Name (2-10 characters)"
+                            onFocus={() => setNameChanges()}
+                            onChange={e => checkNameValidity(e.target.value)}
+                            onBlur={(!name) ? () => setNameButtonClass("untouched") : null}
+                        >
                         </input>
                         <label>Hamster age</label>
                         <input type="number" className={ageButtonClass}
                             placeholder="Age (0-5)"
-                            onFocus={() => setAgeButtonClass("touched") /*, setAgeTouched(true)*/ }
-                            onBlur={() => setAgeButtonClass("untouched")}
-                            >
+                            onFocus={() => setAgeChanges()}
+                            onChange={e => checkAgeValidity(e.target.value)}
+                            onBlur={(!age) ? () => setAgeButtonClass("untouched") : null}
+                        >
                         </input>
 
                     </article>
 
-                    <p>{nameValid}  Image must be added</p>
+                    <p>{imgValid}  Image must be added</p>
+                    <p>{nameValid} Hamster name must be between 2 and 10 characters</p>
                     <p>{nameValid} Hamster name must be unique</p>
-                    <p>{ageValid} Age must be a number</p>
+                    <p>{ageValid} Hamster age must be between 0 and 5</p>
 
                     <article className="form">
-                        <button /*disabled={ageError || nameError || imageError}*/>Upload hamster</button>
+                        <button disabled={imgValid !== "✔️" || nameValid !== "✔️" || 
+                            nameUnique !== "✔️" || ageValid !== "✔️"}>Upload hamster</button>
                     </article>
 
                 </form>
