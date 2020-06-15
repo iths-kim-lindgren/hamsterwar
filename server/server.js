@@ -16,6 +16,7 @@ const chartsRoute = require('./routes/charts')
 const gamesRoute = require('./routes/games')
 const statsRoute = require('./routes/stats')
 const imagesRoute = require('./routes/images')
+const uploadRoute = require('./routes/upload')
     
 server.use(bodyParser.json())
 server.use('/assets', express.static("assets"))
@@ -26,6 +27,7 @@ server.use('/charts', chartsRoute)
 server.use('/games', gamesRoute)
 server.use('/stats', statsRoute)
 server.use('/images', imagesRoute)
+server.use('/upload', uploadRoute)
 
 server.listen(serverPort, () => {
     console.log('Server is up n running!')

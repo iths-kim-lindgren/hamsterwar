@@ -5,6 +5,7 @@ import Arena from './Arena'
 import BattleStats from './BattleStats'
 import AddHamster from './AddHamster'
 import styled from 'styled-components'
+import MainSection from './MainSection';
 
 // const Dropdown = styled.a`
 //     color: green;
@@ -24,24 +25,34 @@ const NavBar = () => {
 
                 <Link to="/arena"><button>Arena</button></Link>
                 <Link to="/stats"><button>Battle Stats</button></Link>
-                <Link to="/add-hamster"><button>Add Hamster</button></Link>
+                <Link to="/upload"><button>Add Hamster</button></Link>
                 <Link to="/graveyard"><button>Graveyard</button></Link>
             </nav>
             <Switch>
                 <Route path="/arena">
-                    <Arena></Arena>
+                    <MainSection>
+                        <Arena></Arena>
+                    </MainSection>
                 </Route>
                 <Route path="/stats">
-                    <BattleStats/>
+                    <MainSection>
+                        <BattleStats />
+                    </MainSection>
                 </Route>
-                <Route path="/add-hamster">
-                    <AddHamster></AddHamster>
-            </Route>
+                <Route path="/upload">
+                    <MainSection>
+                        <AddHamster></AddHamster>
+                    </MainSection>
+                </Route>
                 <Route path="/graveyard">
-                    This is the graveyard
-            </Route>
+                    <MainSection>
+                        This is the graveyard
+                    </MainSection>
+                </Route>
                 <Route path="/">
-                    <StartSection/>
+                    <MainSection>
+                        <StartSection />
+                    </MainSection>
                 </Route>
             </Switch>
         </Router>

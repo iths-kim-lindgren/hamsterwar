@@ -3,14 +3,14 @@ import { BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect } from 
 import { getBattlingHamsters } from '../fetchData'
 import Hamster from '../Hamster'
 import styled from 'styled-components'
+import MainSection from '../MainSection';
 
-
-const StyledSection = styled.header`
-& section {
+const StyledArticle = styled.article`
+/* & article { */
     display: flex;
     flex-direction: row;
     justify-content: center;
-}
+/* } */
 & article.mid {
     display: flex;
     flex-direction: column;
@@ -26,9 +26,9 @@ const StyledSection = styled.header`
 }
 `
 
-const SingleBattle = () => {
+const SingleBattle = ({fetchChampions, champions}) => {
 
-    const [battlingHamsters, setBattlingHamsters] = useState(null)
+    // const [battlingHamsters, setBattlingHamsters] = useState(null)
     const [winner, setWinner] = useState(null)
     const [loser, setLoser] = useState(null)
     const [view, setView] = useState("battleSetup")
@@ -37,17 +37,26 @@ const SingleBattle = () => {
     const [activeButton, setActiveButton] = useState(null)
 
     useEffect(() => {
+        if (champions === null){
+            fetchChampions()
+        }
+    }, [])
+
+    
+    useEffect(() => {
         if (view === "battleSetup") {
-            fetchData()
+            if (champions !== null) fetchChampions()
+            // fetchData()
             setBattleText("The combatants have been selected. A new hamster battle is about to begin.")
             setBattleImage("./hamsterIMG/hamsterBattleInit.jpg")
             setActiveButton(<button onClick={() => setView("battleOngoing")}>Fight!</button>)
         } else if (view === "battleOngoing") {
             setBattleText("...and the fight is on! Click on the image of the hamster you would like to win, or let fate decide.")
             setBattleImage(selectRandomImage())
-            setActiveButton(<button onClick={() => setView("battleFinished")}>Let fate decide</button>)
+            setActiveButton(<button onClick={() => setView("battleFinished"),
+                () => selectWinner(champions[Math.floor(Math.random() * 1)])}>Let fate decide</button>)
         } else if (view === "battleFinished") {
-            setBattleText(`${winner} wins! What a turnaround! The audience is wild! Lord Aurelius is indicating his thumb...`)
+            setBattleText(`${winner} wins! What a game! Lord Aurelius is indicating his thumb...`)
             setBattleImage("./hamsterIMG/hamsterBattleFinished.jpg")
             setActiveButton(<div>
                 <button onClick={() => setView("kill")}>👎</button>
@@ -65,34 +74,34 @@ const SingleBattle = () => {
 
     }, [view])
 
-    async function fetchData() {
-        let array = await getBattlingHamsters()
-        setBattlingHamsters(array)
-    }
+    // async function fetchData() {
+    //     let array = await getChampions()
+    //     setBattlingHamsters(array)
+    // }
 
-    function selectWinner(winner, loser) {
+    function selectWinner(winner) {
         if (view !== "battleOngoing") return
 
         // uppdate winning and losing hamsters
         setWinner(winner.name)
-        setLoser(loser.name)
+        winner === champions[0] ? setLoser(champions[1].name) : setLoser(champions[0].name)
         setView("battleFinished")
     }
 
     return (
-        <StyledSection className="main-section">
-            {battlingHamsters
+        <MainSection>
+            {champions
                 ?
-                <section>
+                <StyledArticle>
                     <Hamster>
                         <article>
-                            <img src={battlingHamsters[0].imgURL.url} onClick={() => selectWinner(battlingHamsters[0], battlingHamsters[1])}></img>
-                            <ul key={battlingHamsters[0].id}>
-                                <li>Name: {battlingHamsters[0].name}</li>
-                                <li>Age: {battlingHamsters[0].age}</li>
-                                <li>Battles fought: {battlingHamsters[0].games}</li>
-                                <li>Wins: {battlingHamsters[0].wins}</li>
-                                <li>Defeats: {battlingHamsters[0].defeats}</li>
+                            <img src={champions[0].imgURL.url} onClick={() => selectWinner(champions[0])}></img>
+                            <ul key={champions[0].id}>
+                                <li key={champions[0].id+'name'}>Name: {champions[0].name}</li>
+                                <li>Age: {champions[0].age}</li>
+                                <li>Battles fought: {champions[0].games}</li>
+                                <li>Wins: {champions[0].wins}</li>
+                                <li>Defeats: {champions[0].defeats}</li>
                             </ul>
                         </article>
                     </Hamster>
@@ -103,19 +112,19 @@ const SingleBattle = () => {
                     </article>
                     <Hamster>
                         <article>
-                            <img src={battlingHamsters[1].imgURL.url} onClick={() => selectWinner(battlingHamsters[1], battlingHamsters[0])}></img>
-                            <ul key={battlingHamsters[1].id}>
-                                <li>Name: {battlingHamsters[1].name}</li>
-                                <li>Age: {battlingHamsters[1].age}</li>
-                                <li>Battles fought: {battlingHamsters[1].games}</li>
-                                <li>Wins: {battlingHamsters[1].wins}</li>
-                                <li>Defeats: {battlingHamsters[1].defeats}</li>
+                            <img src={champions[1].imgURL.url} onClick={() => selectWinner(champions[1])}></img>
+                            <ul key={champions[1].id}>
+                                <li>Name: {champions[1].name}</li>
+                                <li>Age: {champions[1].age}</li>
+                                <li>Battles fought: {champions[1].games}</li>
+                                <li>Wins: {champions[1].wins}</li>
+                                <li>Defeats: {champions[1].defeats}</li>
                             </ul>
                         </article>
                     </Hamster>
-                </section>
+                    </StyledArticle>
                 : null}
-        </StyledSection>
+        </MainSection>
     )
 }
 

@@ -13,6 +13,12 @@ h1, h2, h3, h4, h5, p, button {
   font-family: 'Righteous', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+h2.block {
+  width: 90vw;
+  height: 5vw;
+  text-align: center;
+}
+
 nav button, nav a button, section button {
     color: #E3F512;
     text-align: center;
@@ -24,6 +30,10 @@ nav button, nav a button, section button {
 nav > button {
   flex-grow: 1;
   transform: translateY(4px)
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 @font-face {
@@ -39,12 +49,13 @@ li {
 .main-section {
   background-color: #3C3C3C;
   color: black;
-  min-height: 50vh;
-  display: flex;
+  padding-top: 0.1em;
 }
 
 .inspect-hamsters {
+  display: flex;
   flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
 }
 

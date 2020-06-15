@@ -8,12 +8,14 @@ const StyledArticle = styled.article`
     border: 3px solid darkgrey;
     padding: 1em; 
     margin: 0.5em;
-    display: inline-block;
     border-radius: 5%;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
     & img {
-        width: 70%;
-        /* height: 30%; */
+        width: 10em;
+        max-height: 12em;
     }
 `
 const StyledHeader = styled.header`

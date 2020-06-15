@@ -45,7 +45,10 @@ export async function getHamsterImages(index) {
     }
 }
 
-export async function getBattlingHamsters() {
+export async function getChampions(hamster1, hamster2) {
+
+    if (hamster1 && hamster2) return [hamster1, hamster2]
+
     let array = await getLivingHamsters()
     let rand1 = Math.floor(Math.random() * array.length)
     let rand2 = Math.floor(Math.random() * array.length)
@@ -61,4 +64,12 @@ export async function getBattlingHamsters() {
 
     return ([array[rand1], array[rand2]])
 
+}
+
+export async function uploadHamster(object, img){
+    // fetcha från frontend
+
+    // POST:a till backend-router
+
+    // Backend-router-funktion skickar upp till molnet
 }
