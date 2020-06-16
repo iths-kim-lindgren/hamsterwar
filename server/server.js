@@ -1,7 +1,7 @@
 
 const express = require('express');
 const server = express();
-const serverPort = process.envPORT || 1234;
+const serverPort = process.env.PORT || 1234;
 
 server.use(express.static(__dirname + '/../build'))
 
