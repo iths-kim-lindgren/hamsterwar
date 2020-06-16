@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect } from 'react-router-dom';
-import { getBattlingHamsters } from '../fetchData'
+import { getBattlingHamsters, postBattle } from '../fetchData'
 import Hamster from '../Hamster'
 import styled from 'styled-components'
 import MainSection from '../MainSection';

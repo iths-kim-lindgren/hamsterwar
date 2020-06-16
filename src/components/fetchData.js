@@ -19,6 +19,21 @@ export async function getStats() {
     }
 }
 
+// export async function postBattle (battleObject) {
+//     try {
+//         const response = await fetch('/games')
+//         {
+//             method: 'POST',
+
+//         }
+
+//     }
+//     catch(e){
+//         console.error('Fetch failed because', e)
+//         return null
+//     }
+// }
+
 export async function getLivingHamsters() {
     try {
         const response = await fetch('/hamsters')

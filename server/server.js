@@ -30,7 +30,7 @@ server.use('/images', imagesRoute)
 server.use('/upload', uploadRoute)
 
 server.listen(serverPort, () => {
-    console.log('Server is up n running!')
+    console.log(`Server is up n running on port ${serverPort}!`)
 })
 
 module.exports = data;
