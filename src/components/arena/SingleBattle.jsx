@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect } from 'react-router-dom';
-import { getBattlingHamsters, postBattle } from '../fetchData'
+import { getBattlingHamsters, postBattle, putBattleStats } from '../fetchData'
 import Hamster from '../Hamster'
 import styled from 'styled-components'
 import MainSection from '../MainSection';
@@ -56,35 +56,37 @@ const SingleBattle = ({fetchChampions, champions}) => {
             setActiveButton(<button onClick={() => setView("battleFinished"),
                 () => selectWinner(champions[Math.floor(Math.random() * 1)])}>Let fate decide</button>)
         } else if (view === "battleFinished") {
-            setBattleText(`${winner} wins! What a game! Lord Aurelius is indicating his thumb...`)
+            setBattleText(`${winner.name} wins! What a game! Lord Aurelius is indicating his thumb...`)
             setBattleImage("./hamsterIMG/hamsterBattleFinished.jpg")
             setActiveButton(<div>
                 <button onClick={() => setView("kill")}>👎</button>
                 <button onClick={() => setView("spare")}>👍</button>
             </div>)
-            // updateStats
+            updateStats()
         } else if (view === "spare") {
-            setBattleText(`Lord Aurelius is feeling merciful today. ${loser} was dragged off to the dungeons.`)
+            setBattleText(`Lord Aurelius is feeling merciful today. ${loser.name} was dragged off to the dungeons.`)
             setActiveButton(<button onClick={() => setView("battleSetup")}>Next battle</button>)
         } else if (view === "kill") {
-            setBattleText(`${loser} was sent off to a better world. Visit the graveyard anytime to honor its remains.`)
+            setBattleText(`${loser.name} was sent off to a better world. Visit the graveyard anytime to honor its remains.`)
             setActiveButton(<button onClick={() => setView("battleSetup")}>Next battle</button>)
             // update living/dead hamster
         }
 
     }, [view])
 
-    // async function fetchData() {
-    //     let array = await getChampions()
-    //     setBattlingHamsters(array)
-    // }
+    async function updateStats(){
+              let winningHamster = await putBattleStats(winner.id, "win")
+            console.log(winningHamster)
+            let losingHamster = await putBattleStats(loser.id, "defeat")
+            console.log(losingHamster)
+    }
 
     function selectWinner(winner) {
         if (view !== "battleOngoing") return
 
         // uppdate winning and losing hamsters
-        setWinner(winner.name)
-        winner === champions[0] ? setLoser(champions[1].name) : setLoser(champions[0].name)
+        setWinner(winner)
+        winner === champions[0] ? setLoser(champions[1]) : setLoser(champions[0])
         setView("battleFinished")
     }
 

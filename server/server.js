@@ -9,8 +9,18 @@ let data = require('./data.json')
 const { Router } = require('express');
 let router = new Router();
 
-// ROUTES
+//USE BODY-PARSER BEFORE REGISTERING ROUTES!
 const bodyParser = require('body-parser')
+server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.json())
+
+server.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
+// ROUTES
 const hamstersRoute = require('./routes/hamsters');
 const chartsRoute = require('./routes/charts')
 const gamesRoute = require('./routes/games')
@@ -18,7 +28,7 @@ const statsRoute = require('./routes/stats')
 const imagesRoute = require('./routes/images')
 const uploadRoute = require('./routes/upload')
     
-server.use(bodyParser.json())
+
 server.use('/assets', express.static("assets"))
 server.use(express.static('public'))
 

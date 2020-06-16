@@ -10,6 +10,7 @@
     "express": "^4.17.1",
     "firebase-admin": "^8.12.1",
     "fs": "0.0.1-security",
+    "node-fetch": "^2.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
@@ -22,9 +23,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-
-  "proxy": "http://0.0.0.0:1234",
-
+  "proxy": "http://localhost:1234",
   "eslintConfig": {
     "extends": "react-app"
   },

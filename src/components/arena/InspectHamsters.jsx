@@ -21,14 +21,14 @@ const InspectHamsters = ({fetchChampions, doSetChampions}) => {
 
             // hämta bildURL:er
             let imageArray = []
-            for (let i = 0; i < objectArray.length; i++) {
+            // for (let i = 0; i < objectArray.length; i++) {
                 // imageArray.push(await getHamsterImages(objectArray[i].imgName))
 
                 // mappa över hamsterarray, och lägg till URL:erna i respektive hamsterobjekt
                 // objectArray[i].imgURL = imageArray[i].url
                 
                 //objectArray[i].imgURL = objectArray[i].imgName;
-            }
+            // }
             setLivingHamsters(objectArray)
         }
         fetchData()
@@ -37,7 +37,7 @@ const InspectHamsters = ({fetchChampions, doSetChampions}) => {
     return (
         <section className="main-section inspect-hamsters">
             
-                <h2 className="block">"You may select two champions for the next battle," says Aurelius, "or I will do so myself!"</h2>
+                <h2 className="block">"You may select champions for the coming battles," says Aurelius, "or I will do so myself!"</h2>
             
             {livingHamsters
                 ? livingHamsters.map(hamster =>
@@ -50,7 +50,7 @@ const InspectHamsters = ({fetchChampions, doSetChampions}) => {
                                 <li>Battles fought: {hamster.games}</li>
                                 <li>Wins: {hamster.wins}</li>
                                 <li>Defeats: {hamster.defeats}</li>
-                                <StyledButton onClick={()=> fetchChampions(hamster, hamster)} disabled={false}>{buttonText}</StyledButton>
+                                <StyledButton onClick={()=> doSetChampions} disabled={false}>{buttonText}</StyledButton>
                             </ul>
                         </Hamster>
                     ))

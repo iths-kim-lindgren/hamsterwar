@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import MainSection from './MainSection';
-import { uploadHamster } from './fetchData';
+import { uploadHamster, getLivingHamsters } from './fetchData';
 // import fs = require('fs')
 
 const StyledArticle = styled.article`
@@ -35,6 +35,7 @@ const StyledArticle = styled.article`
 
 const AddHamster = () => {
 
+    const [hamsterList, setHamsterList] = useState(null)
     const [nameButtonClass, setNameButtonClass] = useState("untouched")
     const [ageButtonClass, setAgeButtonClass] = useState("untouched")
     const [imgValid, setImgValid] = useState("❓")
@@ -49,6 +50,14 @@ const AddHamster = () => {
     const [nameTouched, setNameTouched] = useState(false)
     const [ageTouched, setAgeTouched] = useState(false)
 
+    useEffect(() => {
+        async function getHamsters(){
+            setHamsterList(await getLivingHamsters())
+        }
+        getHamsters()
+    }, [])
+
+
     const stopSubmit = event => {
         event.preventDefault();
     }
@@ -58,11 +67,19 @@ const AddHamster = () => {
         setNameTouched(true)
     }
 
-    function checkNameValidity(value) {
+    async function checkNameValidity(value) {
+        // console.log("Value:", value, "jag uppdateras")
         setName(value)
+        // console.log("Name:", name, "jag släpar efter")
+
         value.length > 1 && value.length < 11 ? setNameValid("✔️") : setNameValid("❌")
 
         // hämta en lista på alla hamsternamn, filtrera, kolla om någon matchar, sätt NameUnique
+        console.log(hamsterList)
+        console.log(name)
+        const filteredList = hamsterList.filter(hamster => hamster.name === value)
+        console.log(filteredList[0])
+        !filteredList[0] ? setNameUnique("✔️") : setNameUnique("❌")
     }
 
     function setAgeChanges() {
@@ -88,6 +105,7 @@ const AddHamster = () => {
                             placeholder="Name (2-10 characters)"
                             onFocus={() => setNameChanges()}
                             onChange={e => checkNameValidity(e.target.value)}
+                            // value={name}
                             onBlur={(!name) ? () => setNameButtonClass("untouched") : null}
                         >
                         </input>
@@ -104,7 +122,7 @@ const AddHamster = () => {
 
                     <p>{imgValid}  Image must be added</p>
                     <p>{nameValid} Hamster name must be between 2 and 10 characters</p>
-                    <p>{nameValid} Hamster name must be unique</p>
+                    <p>{nameUnique} Hamster name must be unique</p>
                     <p>{ageValid} Hamster age must be between 0 and 5</p>
 
                     <article className="form">

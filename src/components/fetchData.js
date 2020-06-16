@@ -1,3 +1,5 @@
+const fetch = require('node-fetch')
+
 export async function getStats() {
     let baseUrl = 'charts/api';
     try {
@@ -19,29 +21,59 @@ export async function getStats() {
     }
 }
 
-// export async function postBattle (battleObject) {
-//     try {
-//         const response = await fetch('/games')
-//         {
-//             method: 'POST',
+export async function postBattle(battleObject) {
+    try {
+        const response = await fetch('/games',
+            { method: 'POST', headers: null, body: battleObject })
+    }
 
-//         }
+    catch (e) {
+        console.error('Fetch failed because', e)
+        return null
+    }
+}
 
-//     }
-//     catch(e){
-//         console.error('Fetch failed because', e)
-//         return null
-//     }
-// }
 
 export async function getLivingHamsters() {
     try {
-        const response = await fetch('/hamsters')
+        const response = await fetch('/hamsters/api')
         const hamstersObj = await response.json()
         return hamstersObj
     }
-    catch(e) {
+    catch (e) {
         console.log('Fetch failed because', e)
+        return null
+    }
+}
+
+export async function putBattleStats(hamsterID, outcome) {
+    try {
+        if (outcome === "win") {
+            const response = await fetch(`/hamsters/${hamsterID}/results`,
+                {
+                    method: 'PUT',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        hamsterID: hamsterID,
+                        wins: 1
+                    })
+                })
+                return response.json()
+        } else if (outcome === "defeat") {
+            const response = await fetch(`/hamsters/${hamsterID}/results`,
+            {
+                method: 'PUT',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    hamsterID: hamsterID,
+                    defeats: 1
+                })
+            })
+            return response.json()
+        }
+    }
+    catch (e) {
+        console.error('Fetch failed because', e)
         return null
     }
 }
@@ -54,7 +86,7 @@ export async function getHamsterImages(index) {
 
         return imageObj
     }
-    catch(e) {
+    catch (e) {
         console.log('Fetch failed because', e)
         return null
     }
@@ -62,26 +94,29 @@ export async function getHamsterImages(index) {
 
 export async function getChampions(hamster1, hamster2) {
 
-    if (hamster1 && hamster2) return [hamster1, hamster2]
+    if (hamster1 && hamster2){
+        console.log("jahaja")
+     return [hamster1, hamster2]
+    }
 
     let array = await getLivingHamsters()
     let rand1 = Math.floor(Math.random() * array.length)
     let rand2 = Math.floor(Math.random() * array.length)
-    
+
     do {
         rand2 = Math.floor(Math.random() * array.length);
-    } while(rand1 === rand2);
+    } while (rand1 === rand2);
 
     array[rand1].imgURL = await getHamsterImages(array[rand1].imgName)
     array[rand2].imgURL = await getHamsterImages(array[rand2].imgName)
 
-    console.log({hamster1: array[rand1], hamster2: array[rand2]})
+    console.log({ hamster1: array[rand1], hamster2: array[rand2] })
 
     return ([array[rand1], array[rand2]])
 
 }
 
-export async function uploadHamster(object, img){
+export async function uploadHamster(object, img) {
     // fetcha från frontend
 
     // POST:a till backend-router

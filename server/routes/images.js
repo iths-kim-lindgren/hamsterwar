@@ -12,7 +12,6 @@ router.get('/:fileName', async (req, res) => {
         })
         .then(data => data[0])
         const hamsterImage = await imagePromise
-        console.log('hamsterImage backend: ', hamsterImage)
         res.send({url: hamsterImage})
         
     } catch (error) {
