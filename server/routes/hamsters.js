@@ -81,19 +81,20 @@ router.put('/:id/results', async (req, res) => {
             console.log("wins before", hamsters[0].wins)
             hamsters[0].wins++
             console.log("wins after", hamsters[0].wins)
-            res.sendStatus(`${hamsters[0].name} now has ${hamsters[0].wins} wins!`)
-            res.sendStatus(hamsters[0].wins++)
+            // res.send(`${hamsters[0].name} now has ${hamsters[0].wins} wins!`)
+            // res.send(hamsters[0].wins++)
         } else if (req.body.defeats == 1) {
             console.log("defeats before", hamsters[0].defeats)
             hamsters[0].defeats++
             console.log("defeats", hamsters[0].defeats)
-            res.sendStatus(`${hamsters[0].name} now has ${hamsters[0].defeats} defeats!`)
-            res.sendStatus(hamsters[0].defeats++)
+            // res.send(`${hamsters[0].name} now has ${hamsters[0].defeats} defeats!`)
+            // res.send(hamsters[0].defeats++)
         } else {
             throw ("You must either increase wins or defeats by 1")
         }
-        res.sendStatus(hamsters[0].games++)
+        // res.sendStatus(hamsters[0].games++)
         db.collection('hamsters').doc(req.params.id).set(hamsters[0])
+        res.sendStatus(200)
         return
     }
     catch (err) {

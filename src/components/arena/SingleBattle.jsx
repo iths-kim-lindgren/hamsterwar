@@ -80,11 +80,8 @@ const SingleBattle = ({ fetchChampions, champions }) => {
     }, [view])
 
     async function updateStats() {
-        let winningHamster = await putBattleStats(winner.id, "win")
-        console.log("winning Hamster:", winningHamster)
-        let losingHamster = await putBattleStats(loser.id, "defeat")
-        console.log("losing Hamster:", losingHamster)
-        console.log(loser.id)
+        await putBattleStats(winner.id, "win")
+        await putBattleStats(loser.id, "defeat")
     }
 
     function selectWinner(winner) {

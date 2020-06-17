@@ -58,7 +58,7 @@ export async function putBattleStats(hamsterID, outcome) {
                         wins: 1
                     })
                 })
-                return response.json()
+                
         } else if (outcome === "defeat") {
             const response = await fetch(`/hamsters/${hamsterID}/results`,
             {
@@ -69,7 +69,7 @@ export async function putBattleStats(hamsterID, outcome) {
                     defeats: 1
                 })
             })
-            return response.json()
+            
         }
     }
     catch (e) {

@@ -75,8 +75,8 @@ const AddHamster = () => {
         value.length > 1 && value.length < 11 ? setNameValid("✔️") : setNameValid("❌")
 
         // hämta en lista på alla hamsternamn, filtrera, kolla om någon matchar, sätt NameUnique
-        const filteredList = hamsterList.filter(hamster => hamster.name === value)
-        !filteredList[0] ? setNameUnique("✔️") : setNameUnique("❌")
+        const filteredList = hamsterList.filter(hamster => hamster.name.toLowerCase() === value.toLowerCase())
+        !filteredList[0] && value.length > 0 ? setNameUnique("✔️") : setNameUnique("❌")
     }
 
     function setAgeChanges() {
@@ -113,7 +113,6 @@ const AddHamster = () => {
                             onBlur={(!age) ? () => setAgeButtonClass("untouched") : null}
                         >
                         </input>
-
                     </article>
 
                     <p>{imgValid}  Image must be added</p>
