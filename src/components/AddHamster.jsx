@@ -75,10 +75,7 @@ const AddHamster = () => {
         value.length > 1 && value.length < 11 ? setNameValid("✔️") : setNameValid("❌")
 
         // hämta en lista på alla hamsternamn, filtrera, kolla om någon matchar, sätt NameUnique
-        console.log(hamsterList)
-        console.log(name)
         const filteredList = hamsterList.filter(hamster => hamster.name === value)
-        console.log(filteredList[0])
         !filteredList[0] ? setNameUnique("✔️") : setNameUnique("❌")
     }
 
@@ -105,7 +102,6 @@ const AddHamster = () => {
                             placeholder="Name (2-10 characters)"
                             onFocus={() => setNameChanges()}
                             onChange={e => checkNameValidity(e.target.value)}
-                            // value={name}
                             onBlur={(!name) ? () => setNameButtonClass("untouched") : null}
                         >
                         </input>

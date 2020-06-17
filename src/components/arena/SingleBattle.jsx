@@ -26,7 +26,7 @@ const StyledArticle = styled.article`
 }
 `
 
-const SingleBattle = ({fetchChampions, champions}) => {
+const SingleBattle = ({ fetchChampions, champions }) => {
 
     // const [battlingHamsters, setBattlingHamsters] = useState(null)
     const [winner, setWinner] = useState(null)
@@ -37,16 +37,21 @@ const SingleBattle = ({fetchChampions, champions}) => {
     const [activeButton, setActiveButton] = useState(null)
 
     useEffect(() => {
-        if (champions === null){
+        if (champions.length < 2) {
             fetchChampions()
         }
     }, [])
 
-    
+
     useEffect(() => {
         if (view === "battleSetup") {
-            if (champions !== null) fetchChampions()
-            // fetchData()
+            console.log("setup", champions.length)
+            if (champions.length > 1 && winner) {
+                champions.shift()
+                champions.shift()
+                // mellanlagra
+            }
+            if (champions.length < 2 && winner) fetchChampions()
             setBattleText("The combatants have been selected. A new hamster battle is about to begin.")
             setBattleImage("./hamsterIMG/hamsterBattleInit.jpg")
             setActiveButton(<button onClick={() => setView("battleOngoing")}>Fight!</button>)
@@ -74,11 +79,12 @@ const SingleBattle = ({fetchChampions, champions}) => {
 
     }, [view])
 
-    async function updateStats(){
-              let winningHamster = await putBattleStats(winner.id, "win")
-            console.log(winningHamster)
-            let losingHamster = await putBattleStats(loser.id, "defeat")
-            console.log(losingHamster)
+    async function updateStats() {
+        let winningHamster = await putBattleStats(winner.id, "win")
+        console.log("winning Hamster:", winningHamster)
+        let losingHamster = await putBattleStats(loser.id, "defeat")
+        console.log("losing Hamster:", losingHamster)
+        console.log(loser.id)
     }
 
     function selectWinner(winner) {
@@ -92,14 +98,14 @@ const SingleBattle = ({fetchChampions, champions}) => {
 
     return (
         <MainSection>
-            {champions
+            {champions.length > 1
                 ?
                 <StyledArticle>
                     <Hamster>
                         <article>
-                            <img src={champions[0].imgURL.url} onClick={() => selectWinner(champions[0])}></img>
+                            <img src={champions[0].imgURL.url || champions[0].imgURL} onClick={() => selectWinner(champions[0])}></img>
                             <ul key={champions[0].id}>
-                                <li key={champions[0].id+'name'}>Name: {champions[0].name}</li>
+                                <li key={champions[0].id + 'name'}>Name: {champions[0].name}</li>
                                 <li>Age: {champions[0].age}</li>
                                 <li>Battles fought: {champions[0].games}</li>
                                 <li>Wins: {champions[0].wins}</li>
@@ -114,7 +120,7 @@ const SingleBattle = ({fetchChampions, champions}) => {
                     </article>
                     <Hamster>
                         <article>
-                            <img src={champions[1].imgURL.url} onClick={() => selectWinner(champions[1])}></img>
+                            <img src={champions[1].imgURL.url || champions[1].imgURL} onClick={() => selectWinner(champions[1])}></img>
                             <ul key={champions[1].id}>
                                 <li>Name: {champions[1].name}</li>
                                 <li>Age: {champions[1].age}</li>
@@ -124,7 +130,7 @@ const SingleBattle = ({fetchChampions, champions}) => {
                             </ul>
                         </article>
                     </Hamster>
-                    </StyledArticle>
+                </StyledArticle>
                 : null}
         </MainSection>
     )

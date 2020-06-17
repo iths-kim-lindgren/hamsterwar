@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import Bordered from './Bordered'
 
 const StyledArticle = styled.article`
     width: 16em;
@@ -17,10 +16,6 @@ const StyledArticle = styled.article`
         width: 10em;
         max-height: 12em;
     }
-`
-const StyledHeader = styled.header`
-    display: flex;
-    flex-direction: row;
 `
 
 const Hamster = ({ children }) => {

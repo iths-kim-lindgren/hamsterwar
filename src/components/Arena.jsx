@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect } from 'react-router-dom';
+import React, { useState } from 'react'
 import InspectHamsters from './arena/InspectHamsters';
 import SingleBattle from './arena/SingleBattle';
 import Tournament from './arena/Tournament';
@@ -8,7 +7,7 @@ import {getChampions} from './fetchData'
 
 const Arena = () => {
 
-    const [champions, setChampions] = useState(null)
+    const [champions, setChampions] = useState([])
     const [view, setView] = useState("singleBattle")
 
     async function fetchChampions() {
@@ -21,7 +20,7 @@ const Arena = () => {
     if (view === "singleBattle") {
         content = <SingleBattle champions={champions} fetchChampions={fetchChampions} />
     } else if (view === "inspectHamsters") {
-        content = <InspectHamsters doSetChampions={() => setChampions}
+        content = <InspectHamsters champions={champions}
             fetchChampions={() => fetchChampions()} />
     } else {
         content = <Tournament />

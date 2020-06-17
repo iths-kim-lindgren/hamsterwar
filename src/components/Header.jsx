@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect } from 'react-router-dom';
 
 
 const StyledHeader = styled.header`

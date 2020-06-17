@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import '../App.css'
 import styled from 'styled-components'
-import { getHamsterImages } from './fetchData'
 import MainSection from './MainSection'
 
 const StyledArticle = styled.article`
@@ -22,8 +21,6 @@ const StyledArticle = styled.article`
 `
 
 const StartSection = () => {
-
-    const [hamsterImage, setHamsterImage] = useState(null)
 
     return (
         <MainSection>
