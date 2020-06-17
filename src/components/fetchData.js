@@ -33,6 +33,24 @@ export async function postBattle(battleObject) {
     }
 }
 
+export async function postHamster(name, age) {
+    try {
+        await fetch('/hamsters/api/new-hamster',
+            {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: name,
+                    age: age
+                })
+            })
+        console.log("postHamster har körts")
+    }
+    catch (e) {
+        console.error(e)
+    }
+}
+
 
 export async function getLivingHamsters() {
     try {
@@ -58,18 +76,18 @@ export async function putBattleStats(hamsterID, outcome) {
                         wins: 1
                     })
                 })
-                
+
         } else if (outcome === "defeat") {
             const response = await fetch(`/hamsters/${hamsterID}/results`,
-            {
-                method: 'PUT',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    hamsterID: hamsterID,
-                    defeats: 1
+                {
+                    method: 'PUT',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        hamsterID: hamsterID,
+                        defeats: 1
+                    })
                 })
-            })
-            
+
         }
     }
     catch (e) {
@@ -92,11 +110,26 @@ export async function getHamsterImages(index) {
     }
 }
 
+export async function getBattles() {
+    try {
+        const response = await fetch(`/games`)
+        const data = await response.json()
+        console.log(data)
+        console.log(data.length)
+
+        return data.length
+    }
+    catch (e) {
+        console.log('Fetch failed because', e)
+        return null
+    }
+}
+
 export async function getChampions(hamster1, hamster2) {
 
-    if (hamster1 && hamster2){
+    if (hamster1 && hamster2) {
         console.log("jahaja")
-     return [hamster1, hamster2]
+        return [hamster1, hamster2]
     }
 
     let array = await getLivingHamsters()
@@ -114,12 +147,4 @@ export async function getChampions(hamster1, hamster2) {
 
     return ([array[rand1], array[rand2]])
 
-}
-
-export async function uploadHamster(object, img) {
-    // fetcha från frontend
-
-    // POST:a till backend-router
-
-    // Backend-router-funktion skickar upp till molnet
 }

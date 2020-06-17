@@ -1,3 +1,18 @@
+// THIS FIRST FUNCTION I JUST COPIED FROM A SOLUTION BUT IT DOES NOT SEEM TO HELP
+// routes/index.js
+module.exports = (express) => {
+  // Create express Router
+  var router = express.Router();
+
+  // add routes
+  server.route('/hamsters/api/new-hamster')
+    .post((req, res) => {
+       res.setHeader('Content-Type', 'application/json');
+       res.send('You sent: sdadad to Express');
+    });
+
+  return router;
+}
 
 const express = require('express');
 const server = express();

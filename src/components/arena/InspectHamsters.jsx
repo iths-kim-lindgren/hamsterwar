@@ -7,6 +7,13 @@ const StyledButton = styled.button`
     width: 10em;
 `
 
+const StyledArticle = styled.article`
+    height: 20em;
+    & li {
+        font-size: 0.8em;
+    }
+`
+
 const InspectHamsters = ({fetchChampions, champions}) => {
 
     const [livingHamsters, setLivingHamsters] = useState(null)
@@ -49,6 +56,7 @@ const InspectHamsters = ({fetchChampions, champions}) => {
                 ? livingHamsters.map(hamster =>
                     (
                         <Hamster>
+                            <StyledArticle>
                             <img src={hamster.imgURL}/>
                             <ul key={hamster.id}>
                                 <li>Name: {hamster.name}</li>
@@ -56,8 +64,9 @@ const InspectHamsters = ({fetchChampions, champions}) => {
                                 <li>Battles fought: {hamster.games}</li>
                                 <li>Wins: {hamster.wins}</li>
                                 <li>Defeats: {hamster.defeats}</li>
-                                <StyledButton onClick={event => selectChampion(event.target, hamster)} disabled={false}>Select Champion</StyledButton>
                             </ul>
+                            </StyledArticle>
+                                <StyledButton onClick={event => selectChampion(event.target, hamster)}>Select Champion</StyledButton>
                         </Hamster>
                     ))
                 : null}

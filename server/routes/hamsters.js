@@ -3,6 +3,44 @@ const { Router } = require('express');
 
 const router = new Router();
 
+// ÄNDRA FUNKTION SÅ DEN POSTAR ETT HAMSTEROBJEKT
+router.post('api/new-hamster', async (req, res) => {
+    try {
+        if (!db.collection('newHamsters')){
+            var id = 0
+        } else {
+            var id = db.collection('newHamsters').length
+        }
+        console.log(req.body)
+        db.collection('newHamsters').doc(id).set(req.body)
+        console.log("hamster uploaded")
+        res.send(req.body)
+    }
+
+    catch (err) {
+        console.error(err)
+    }
+
+})
+
+router.get('api/new-hamster', async (req, res) => {
+    try {
+        if (!db.collection('newHamsters')){
+            var id = 0
+        } else {
+            var id = db.collection('newHamsters').length
+        }
+        console.log(req.body)
+        db.collection('newHamsters').doc(id).set(req.body)
+        console.log("hamster uploaded")
+    }
+
+    catch (err) {
+        console.error(err)
+    }
+
+})
+
 router.get('/api', async (req, res) => {
     try {
         let hamsters = []
@@ -51,21 +89,6 @@ router.get('api/:id', async (req, res) => {
     }
 })
 
-// ÄNDRA FUNKTION SÅ DEN POSTAR ETT HAMSTEROBJEKT
-router.post('new-hamster/:id', async (req, res) => {
-    try {
-        let hamsters = []
-        let snapShots = await db.collection('hamsters').where("id", "==", parseInt(req.params.id)).get()
-        snapShots.forEach(doc => {
-            hamsters.push(doc.data())
-        })
-        console.log(hamsters)
-        res.send(hamsters[0])
-    }
-    catch (err) {
-        console.error(err)
-    }
-})
 
 router.put('/:id/results', async (req, res) => {
     try {

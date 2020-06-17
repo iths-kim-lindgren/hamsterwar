@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import MainSection from './MainSection'
 
 const StyledArticle = styled.article`
-    height: 40vh;
+    height: 50vh;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
@@ -14,7 +14,7 @@ const StyledArticle = styled.article`
     }
     & p {
         width: 50vw;
-        height: 30vh;
+        height: 35vh;
         font-family: 'Righteous', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         color: black;
     }

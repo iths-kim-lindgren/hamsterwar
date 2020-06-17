@@ -55,6 +55,7 @@ li {
   background-color: #3C3C3C;
   color: black;
   padding-top: 0.1em;
+  min-height: 50vh;
 }
 
 .inspect-hamsters {
@@ -73,23 +74,18 @@ header, header > article, footer {
   src: url('Righteous-Regular.ttf')
 }
 
-/* section.top, section.mid {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-} */
-
 .hamster-container {
   display: inline-block;
 }
 
 footer {
   justify-content: space-around;
+  align-items: center;
   background-color: #1B1818;
-  color: #E3F512;
-  height: 25vh;
+  height: 20vh;
 }
 
-@media (min-width: 1024px) {
-
-} 
+footer p {
+  color: white;
+  font-size: 0.8em;
+}

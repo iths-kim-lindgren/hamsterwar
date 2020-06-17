@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css'
 import styled from 'styled-components'
-import { getStats } from './fetchData'
+import { getStats, getBattles, getHamsterImages } from './fetchData'
 import Hamster from './Hamster'
 import MainSection from './MainSection';
 
@@ -12,22 +12,44 @@ const StyledSection = styled.section`
 
 const BattleStats = () => {
 
-    const [topStats, setTopStats] = useState(null)
-    const [bottomStats, setBottomStats] = useState(null)
-    const handleClick = async () => {
-        let array = await getStats();
-        console.log("Got stats from API", array)
-        setTopStats(array.top.toplist)
-        setBottomStats(array.bottom.toplist)
-    }
+    const [topStats, setTopStats] = useState([])
+    const [bottomStats, setBottomStats] = useState([])
+    const [battles, setBattles] = useState(null)
+    
+    useEffect(() => {
+        async function getData() {
+                let array = await getStats();
+                setTopStats(array.top.toplist)
+                setBottomStats(array.bottom.toplist)
+                let data = await getBattles()
+                setBattles(data)
+            }
+            getData()
+        }, [])
+        
+        // DENNA KOD SKULLE FÅ IN BILDER OCKSÅ MEN MINA USE-STATE-VARIABLER HINNER INTE SÄTTAS OVANFÖR
+        // AV NÅGON ANLEDNING SÅ DET GICK INTE
+    //     let topImageArray = []
+    //     console.log("TOPSTATS", topStats)
+    //     for (let i = 0; i < 4 /*topStats.length*/; i++) {
+    //         topImageArray.push(await getHamsterImages(topStats[i].imgName))
+    //         console.log("toppbilder", topImageArray)
+    //         topStats[i].imgURL = topImageArray[i].url
+    //     }
+    //     let bottomImageArray = []
+    //     for (let i = 0; i < bottomStats.length; i++) {
+    //         bottomImageArray.push(await getHamsterImages(bottomStats[i].imgName))
+    //         bottomStats[i].imgURL = bottomImageArray[i].url
+    // }
+
 
     return (
         <MainSection>
             <StyledSection>
                 <article>
                     <h2>Total Battles</h2>
-                    <p>Battles held:</p>
-                    <p>Deaths:</p>
+                    <p>Battles held: {battles}</p>
+                    {/* <p>Deaths:</p> */}
                 </article>
                 <article>
                     <h2>Top hamsters</h2>
@@ -35,7 +57,7 @@ const BattleStats = () => {
                         ? topStats.map(hamster => (
                             <article>
                                 <Hamster>
-                                    {/* FIXA BILDER  <img src={hamster.img}></img> */}
+                                    <img src={hamster.imgURL}></img>
                                     <ul key={hamster.id}>
                                         <li>Name: {hamster.name}</li>
                                         <li>Age: {hamster.age}</li>
@@ -55,7 +77,7 @@ const BattleStats = () => {
                             ? bottomStats.map(hamster => (
                                 <article>
                                     <Hamster>
-                                        {/* FIXA BILDER  <img src={hamster.img}></img> */}
+                                        <img src={hamster.imgURL}></img>
                                         <ul key={hamster.id}>
                                             <li>Name: {hamster.name}</li>
                                             <li>Age: {hamster.age}</li>
@@ -68,12 +90,9 @@ const BattleStats = () => {
                             ))
                             : null}
                     </ul>
-                    <button onClick={handleClick}>klicka</button>
                 </article>
             </StyledSection>
         </MainSection>
     )
 }
-
-
 export default BattleStats;

@@ -6,7 +6,7 @@ const Footer = () => {
     return (
         <footer>
             <p>All Rights Reserved</p>
-            <p>Social media</p>
+            <p>This site is sponsored by Kijoli Games</p>
         </footer>
     )
 }

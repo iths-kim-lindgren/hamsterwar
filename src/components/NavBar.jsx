@@ -5,6 +5,7 @@ import Arena from './Arena'
 import BattleStats from './BattleStats'
 import AddHamster from './AddHamster'
 import MainSection from './MainSection';
+import Graveyard from './Graveyard';
 
 const NavBar = () => {
 
@@ -35,7 +36,7 @@ const NavBar = () => {
                 </Route>
                 <Route path="/graveyard">
                     <MainSection>
-                        This is the graveyard
+                        <Graveyard></Graveyard>
                     </MainSection>
                 </Route>
                 <Route path="/">
