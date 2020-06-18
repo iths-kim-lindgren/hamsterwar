@@ -29,8 +29,6 @@ const InspectHamsters = ({fetchChampions, champions}) => {
 
                 // mappa över hamsterarray, och lägg till URL:erna i respektive hamsterobjekt
                 objectArray[i].imgURL = imageArray[i].url
-                
-                //objectArray[i].imgURL = objectArray[i].imgName;
             }
             setLivingHamsters(objectArray)
         }
@@ -39,9 +37,9 @@ const InspectHamsters = ({fetchChampions, champions}) => {
 
     function selectChampion(button, hamster){
         champions.push(hamster)
-        console.log(champions)
-        console.log(champions[0])
-        console.log(champions[0].imgURL)
+        // console.log(champions)
+        // console.log(champions[0])
+        // console.log(champions[0].imgURL)
         // console.log(champions[0].imgURL.url)
         button.classList.add("disabled")
     }
@@ -57,13 +55,14 @@ const InspectHamsters = ({fetchChampions, champions}) => {
                     (
                         <Hamster>
                             <StyledArticle>
-                            <img src={hamster.imgURL}/>
-                            <ul key={hamster.id}>
-                                <li>Name: {hamster.name}</li>
-                                <li>Age: {hamster.age}</li>
-                                <li>Battles fought: {hamster.games}</li>
-                                <li>Wins: {hamster.wins}</li>
-                                <li>Defeats: {hamster.defeats}</li>
+                                {/* VET EJ VARFÖR DEN SÄGER ATT DESSA NYCKLAR INTE BLIR UNIKA */}
+                            <img alt="hamster" src={hamster.imgURL}/>
+                            <ul key={hamster.id + 'ul'}>
+                                <li key={hamster.id + hamster.name}>Name: {hamster.name}</li>
+                                <li key={hamster.id + hamster.age}>Age: {hamster.age}</li>
+                                <li key={hamster.id + hamster.games}>Battles fought: {hamster.games}</li>
+                                <li key={hamster.id + hamster.wins}>Wins: {hamster.wins}</li>
+                                <li key={hamster.id + hamster.defeats}>Defeats: {hamster.defeats}</li>
                             </ul>
                             </StyledArticle>
                                 <StyledButton onClick={event => selectChampion(event.target, hamster)}>Select Champion</StyledButton>
@@ -74,6 +73,5 @@ const InspectHamsters = ({fetchChampions, champions}) => {
         </section>
     )
 }
-
 
 export default InspectHamsters;

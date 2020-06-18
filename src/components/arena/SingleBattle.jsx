@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link, NavLink, Redirect } from 'react-router-dom';
-import { getBattlingHamsters, postBattle, putBattleStats } from '../fetchData'
+import { putBattleStats } from '../fetchData'
 import Hamster from '../Hamster'
 import styled from 'styled-components'
 import MainSection from '../MainSection';
@@ -37,21 +36,12 @@ const SingleBattle = ({ fetchChampions, champions }) => {
     const [activeButton, setActiveButton] = useState(null)
 
     useEffect(() => {
-        if (champions.length < 2) {
-            fetchChampions()
-        }
-    }, [])
-
-
-    useEffect(() => {
         if (view === "battleSetup") {
-            console.log("setup", champions.length)
             if (champions.length > 1 && winner) {
                 champions.shift()
                 champions.shift()
-                // mellanlagra
             }
-            if (champions.length < 2 && winner) fetchChampions()
+            if (champions.length < 2 /*&& winner*/) fetchChampions()
             setBattleText("The combatants have been selected. A new hamster battle is about to begin.")
             setBattleImage("./hamsterIMG/hamsterBattleInit.jpg")
             setActiveButton(<button onClick={() => setView("battleOngoing")}>Fight!</button>)
@@ -64,17 +54,17 @@ const SingleBattle = ({ fetchChampions, champions }) => {
             setBattleText(`${winner.name} wins! What a game! Lord Aurelius is indicating his thumb...`)
             setBattleImage("./hamsterIMG/hamsterBattleFinished.jpg")
             setActiveButton(<div>
-                <button onClick={() => setView("kill")}>👎</button>
-                <button onClick={() => setView("spare")}>👍</button>
+                <button onClick={() => setView("kill")}><span role="img" aria-label="thumbs-down">👎</span></button>
+                <button onClick={() => setView("spare")}><span role="img" aria-label="thumbs-down">👍</span></button>
             </div>)
-            updateStats()
+            updateStats() //HÄR SKA STATS EGENTLIGEN UPPDATERAS ÄVEN I FRONTEND
         } else if (view === "spare") {
             setBattleText(`Lord Aurelius is feeling merciful today. ${loser.name} was dragged off to the dungeons.`)
             setActiveButton(<button onClick={() => setView("battleSetup")}>Next battle</button>)
         } else if (view === "kill") {
             setBattleText(`${loser.name} was sent off to a better world. Visit the graveyard anytime to honor its remains.`)
             setActiveButton(<button onClick={() => setView("battleSetup")}>Next battle</button>)
-            // update living/dead hamster
+            // killHamster(loser) FUNKAR EJ
         }
 
     }, [view])
@@ -100,7 +90,7 @@ const SingleBattle = ({ fetchChampions, champions }) => {
                 <StyledArticle>
                     <Hamster>
                         <article>
-                            <img src={champions[0].imgURL.url || champions[0].imgURL} onClick={() => selectWinner(champions[0])}></img>
+                            <img alt="hamster" src={champions[0].imgURL.url || champions[0].imgURL} onClick={() => selectWinner(champions[0])}></img>
                             <ul key={champions[0].id}>
                                 <li key={champions[0].id + 'name'}>Name: {champions[0].name}</li>
                                 <li>Age: {champions[0].age}</li>
@@ -113,11 +103,11 @@ const SingleBattle = ({ fetchChampions, champions }) => {
                     <article className="mid">
                         <p>{battleText}</p>
                         {activeButton}
-                        <img src={battleImage}></img>
+                        <img alt="hamster" src={battleImage}></img>
                     </article>
                     <Hamster>
                         <article>
-                            <img src={champions[1].imgURL.url || champions[1].imgURL} onClick={() => selectWinner(champions[1])}></img>
+                            <img alt="hamster" src={champions[1].imgURL.url || champions[1].imgURL} onClick={() => selectWinner(champions[1])}></img>
                             <ul key={champions[1].id}>
                                 <li>Name: {champions[1].name}</li>
                                 <li>Age: {champions[1].age}</li>

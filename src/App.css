@@ -54,7 +54,7 @@ li {
 .main-section {
   background-color: #3C3C3C;
   color: black;
-  padding-top: 0.1em;
+  padding-top: 0.001em;
   min-height: 50vh;
 }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css'
 import styled from 'styled-components'
-import { getStats, getBattles, getHamsterImages } from './fetchData'
+import { getStats, getBattles, /*getHamsterImages*/ } from './fetchData'
 import Hamster from './Hamster'
 import MainSection from './MainSection';
 
@@ -57,13 +57,13 @@ const BattleStats = () => {
                         ? topStats.map(hamster => (
                             <article>
                                 <Hamster>
-                                    <img src={hamster.imgURL}></img>
-                                    <ul key={hamster.id}>
-                                        <li>Name: {hamster.name}</li>
-                                        <li>Age: {hamster.age}</li>
-                                        <li>Battles fought: {hamster.games}</li>
-                                        <li>Wins: {hamster.wins}</li>
-                                        <li>Defeats: {hamster.defeats}</li>
+                                    {/* <img alt="hamster" src={hamster.imgURL}></img> */}
+                                    <ul key={hamster.id + 'win'}>
+                                        <li key={hamster.id + hamster.name + 'win'}>Name: {hamster.name}</li>
+                                        <li key={hamster.id + hamster.age + 'win'}>Age: {hamster.age}</li>
+                                        <li key={hamster.id + hamster.games + 'win'}>Battles fought: {hamster.games}</li>
+                                        <li key={hamster.id + hamster.wins + 'win'}>Wins: {hamster.wins}</li>
+                                        <li key={hamster.id + hamster.wins + 'win'}>Defeats: {hamster.defeats}</li>
                                     </ul>
                                 </Hamster>
                             </article>
@@ -72,24 +72,22 @@ const BattleStats = () => {
                 </article>
                 <article>
                     <h2>Bottom hamsters</h2>
-                    <ul>
                         {bottomStats
                             ? bottomStats.map(hamster => (
                                 <article>
                                     <Hamster>
-                                        <img src={hamster.imgURL}></img>
-                                        <ul key={hamster.id}>
-                                            <li>Name: {hamster.name}</li>
-                                            <li>Age: {hamster.age}</li>
-                                            <li>Battles fought: {hamster.games}</li>
-                                            <li>Wins: {hamster.wins}</li>
-                                            <li>Defeats: {hamster.defeats}</li>
+                                        {/* <img alt="hamster" src={hamster.imgURL}></img> */}
+                                        <ul key={hamster.id + 'defeat'}>
+                                            <li key={hamster.id + hamster.name + 'defeat'}>Name: {hamster.name}</li>
+                                            <li key={hamster.id + hamster.age + 'defeat'}>Age: {hamster.age}</li>
+                                            <li key={hamster.id + hamster.battles + 'defeat'}>Battles fought: {hamster.games}</li>
+                                            <li key={hamster.id + hamster.wins + 'defeat'}>Wins: {hamster.wins}</li>
+                                            <li key={hamster.id + hamster.defeats + 'defeat'}>Defeats: {hamster.defeats}</li>
                                         </ul>
                                     </Hamster>
                                 </article>
                             ))
                             : null}
-                    </ul>
                 </article>
             </StyledSection>
         </MainSection>

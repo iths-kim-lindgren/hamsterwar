@@ -1,10 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const StyledA = styled.a`
-    text-decoration: none;
-`
-
 const StyledHeader = styled.header`
     justify-content: center;
     background-color: #1B1818;
