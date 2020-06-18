@@ -8,7 +8,7 @@ import {getChampions} from './fetchData'
 const Arena = () => {
 
     const [champions, setChampions] = useState([])
-    const [view, setView] = useState("singleBattle")
+    const [view, setView] = useState("inspectHamsters")
 
     async function fetchChampions() {
         let array = await getChampions()
