@@ -9,8 +9,12 @@ nav {
   background: linear-gradient(to bottom,  #1B1818 50%, #3C3C3C, #3C3C3C 50%);
 }
 
-h1, h2, h3, h4, h5, p, button {
+h1, h2, h3, h4, h5, button {
   font-family: 'Righteous', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+p {
+  font-family: "Berlin Sans FB";
 }
 
 h2.block {
